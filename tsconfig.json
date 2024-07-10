@@ -1,0 +1,14 @@
+{
+  /**
+   * This config file is needed so custom nx generators can be executed within the same project.
+   */
+  "extends": "./tools/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext"],
+    "moduleResolution": "Bundler",
+    "noEmit": true
+  },
+  "exclude": ["node_modules", "./coverage/*"]
+}

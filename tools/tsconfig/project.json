@@ -1,0 +1,6 @@
+{
+  "name": "@template/tsconfig",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "tags": ["type:tool", "scope:shared"]
+}

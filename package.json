@@ -1,0 +1,40 @@
+{
+  "name": "@template/root",
+  "version": "0.0.0",
+  "private": false,
+  "license": "UNLICENSED",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "libs/*",
+    "tools/*"
+  ],
+  "scripts": {
+    "format": "npm-run-all -p format:*",
+    "format:packages": "nx run-many -t format",
+    "format:root": "prettier '*' --write --log-level warn --ignore-unknown",
+    "lint": "nx run-many -t lint && npm run lint-package-versions",
+    "lint-fix": "nx run-many -t lint-fix && npm run lint-package-versions",
+    "lint-package-versions": "syncpack lint",
+    "test": "nx run-many -t test",
+    "build": "nx run-many -t=build",
+    "build-ci": "nx run-many -t=build-ci",
+    "type-check": "nx run-many -t=type-check",
+    "install-dependencies": "npm run install-node-dependencies && npm run install-other-dependencies",
+    "install-node-dependencies": "export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain tecracer-tcs --domain-owner 331916831503 --region eu-central-1 --query authorizationToken --output text` && npm i --force",
+    "install-other-dependencies": "npx nx run-many -t install-dependencies",
+    "prepare-release": "syncpack fix-mismatches && nx release --first-release --skip-publish && syncpack fix-mismatches && npm run undo-commit",
+    "undo-commit": "git reset @~1",
+    "update": "syncpack update && syncpack fix-mismatches"
+  },
+  "devDependencies": {
+    "@nx/node": "~19.3.1",
+    "@nx/plugin": "~19.3.1",
+    "aws-cdk": "^2.147.3",
+    "npm-run-all": "~4.1.5",
+    "nx": "~19.3.1",
+    "prettier": "~3.3.2",
+    "prettier-plugin-packagejson": "~2.5.0",
+    "syncpack": "~12.3.0"
+  }
+}

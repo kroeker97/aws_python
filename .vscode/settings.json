@@ -1,0 +1,33 @@
+{
+  "cSpell.words": [
+    "atlassian",
+    "bitbucket",
+    "codegen",
+    "explaination",
+    "fundings",
+    "jira",
+    "lcov",
+    "nvmrc",
+    "oidc",
+    "packagejson",
+    "Powertools",
+    "tecracer"
+  ],
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/cdk.out": true
+  },
+  "eslint.experimental.useFlatConfig": true,
+  "eslint.format.enable": true,
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "eslint.validate": [
+    "json"
+  ],
+  "python.analysis.extraPaths": [
+    "./apps/application/src/controller"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "extends": "nx/presets/npm.json",
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build", "test-ci", "lint-fix", "type-check", "codegen"],
+      "inputs": ["default", "^default"],
+      "cache": true
+    },
+    "codegen": {
+      "inputs": ["default"],
+      "cache": true
+    },
+    "deploy": {
+      "dependsOn": ["build"]
+    },
+    "format": {
+      "inputs": ["default", "{workspaceRoot}/prettier.config.js", "{workspaceRoot}/.prettierignore"],
+      "cache": true
+    },
+    "lint-fix": {
+      "dependsOn": ["^build", "format"],
+      "inputs": ["default"],
+      "cache": true
+    },
+    "test": {
+      "inputs": ["test", "^test"],
+      "cache": true
+    },
+    "test-ci": {
+      "dependsOn": ["^build", "lint-fix"],
+      "inputs": ["test", "^test"],
+      "cache": true
+    },
+    "type-check": {
+      "dependsOn": ["^build", "lint-fix", "codegen"],
+      "inputs": ["default", "^default", "sharedGlobals", "ignore-test-artifacts", "ignore-cdk-artifacts"],
+      "cache": true
+    }
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals", "ignore-test-artifacts", "ignore-cdk-artifacts"],
+    "test": ["default", "!{projectRoot}/**/*.md", "!{projectRoot}/**/*.sh"],
+    "sharedGlobals": [],
+    "ignore-cdk-artifacts": ["!{projectRoot}/cdk.out"],
+    "ignore-test-artifacts": ["!{projectRoot}/coverage", "!{projectRoot}/junit.xml"]
+  }
+}

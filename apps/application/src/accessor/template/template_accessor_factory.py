@@ -1,0 +1,10 @@
+from .template_accessor import TemplateAccessor
+from .dynamodb_template_accessor.dynamodb_template_accessor_factory import DynamodbTemplateAccessorEnv, create_dynamodb_template_accessor
+
+
+class TemplateAccessorEnv(DynamodbTemplateAccessorEnv):
+  pass
+
+
+def create_template_accessor(template_accessor_env: TemplateAccessorEnv) -> TemplateAccessor:
+  return create_dynamodb_template_accessor(template_accessor_env)

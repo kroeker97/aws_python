@@ -1,0 +1,12 @@
+{
+  "name": "@template/tsconfig",
+  "version": "0.1.0",
+  "private": false,
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "tsconfig.json",
+  "module": "tsconfig.json",
+  "scripts": {
+    "format": "prettier . --write --log-level warn --ignore-unknown --ignore-path ../../.prettierignore"
+  }
+}

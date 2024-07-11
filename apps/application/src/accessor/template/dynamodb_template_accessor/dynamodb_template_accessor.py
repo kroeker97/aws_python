@@ -1,4 +1,5 @@
 import boto3
+from boto3.dynamodb.conditions import Key
 from ..template_accessor import TemplateAccessor
 
 class DynamodbTemplateAccessor(TemplateAccessor):
@@ -7,7 +8,20 @@ class DynamodbTemplateAccessor(TemplateAccessor):
     self.table = dynamodb.Table(table_name)
   
   def read_template(self, name: str):
-    return super().read_template(name)
+    response = self.table.query(
+      KeyConditionExpression=Key('partitionKey').eq('Test')
+    )
+    if len(response.get('Items')) <= 0:
+      return None
+    
+    data = response.get('Items')[0].get('data')
+    
+    return data
   
   def put_template(self, name: str, template: dict):
-    return super().put_template(name, template)
+    return self.table.put_item(
+      Item={
+        'partitionKey': name,
+        'data': template
+      }
+    )
